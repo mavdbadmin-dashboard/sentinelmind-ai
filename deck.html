@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelMind AI — Investor Presentation Q4 2026</title>
+<style>
+  /* ─────────────────────────────────────────────
+     RESET & BASE
+  ───────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0a0f1e;
+    --bg2:      #0d1529;
+    --bg3:      #111827;
+    --cyan:     #00f0ff;
+    --green:    #00ff88;
+    --red:      #ff3366;
+    --yellow:   #ffcc00;
+    --white:    #f0f4ff;
+    --muted:    #7a8aaa;
+    --border:   rgba(0,240,255,0.15);
+    --glow-c:   0 0 20px rgba(0,240,255,0.4);
+    --glow-g:   0 0 20px rgba(0,255,136,0.4);
+    --glow-r:   0 0 20px rgba(255,51,102,0.5);
+    --transition: 0.65s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─────────────────────────────────────────────
+     DECK WRAPPER
+  ───────────────────────────────────────────── */
+  #deck {
+    position: relative;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ─────────────────────────────────────────────
+     SLIDES
+  ───────────────────────────────────────────── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 80px 80px;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity var(--transition), transform var(--transition);
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+    z-index: 2;
+  }
+
+  .slide.prev {
+    opacity: 0;
+    transform: translateX(-60px);
+    z-index: 1;
+  }
+
+  /* Grid background */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ─────────────────────────────────────────────
+     SLIDE LABEL (top-left badge)
+  ───────────────────────────────────────────── */
+  .slide-label {
+    position: absolute;
+    top: 28px; left: 48px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    opacity: 0.6;
+    z-index: 10;
+  }
+
+  /* ─────────────────────────────────────────────
+     TYPOGRAPHY
+  ───────────────────────────────────────────── */
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+    opacity: 0.85;
+  }
+
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 600; }
+
+  .gradient-text {
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .red-text { color: var(--red); }
+  .cyan-text { color: var(--cyan); }
+  .green-text { color: var(--green); }
+  .muted { color: var(--muted); }
+
+  p { line-height: 1.65; color: rgba(240,244,255,0.82); }
+
+  /* ─────────────────────────────────────────────
+     CARDS / BOXES
+  ───────────────────────────────────────────── */
+  .card {
+    background: rgba(13,21,41,0.8);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-cyan  { border-color: rgba(0,240,255,0.3); box-shadow: var(--glow-c); }
+  .card-green { border-color: rgba(0,255,136,0.3); box-shadow: var(--glow-g); }
+  .card-red   { border-color: rgba(255,51,102,0.3); box-shadow: var(--glow-r); }
+
+  /* ─────────────────────────────────────────────
+     STAT BLOCKS
+  ───────────────────────────────────────────── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .stat-box {
+    background: rgba(13,21,41,0.9);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ─────────────────────────────────────────────
+     BULLETS / LISTS
+  ───────────────────────────────────────────── */
+  .bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .bullet-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    color: rgba(240,244,255,0.88);
+    line-height: 1.5;
+  }
+
+  .bullet-list li .icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    background: rgba(0,240,255,0.1);
+    border: 1px solid rgba(0,240,255,0.25);
+    margin-top: 2px;
+  }
+
+  .bullet-list li .icon.red   { background: rgba(255,51,102,0.12); border-color: rgba(255,51,102,0.3); }
+  .bullet-list li .icon.green { background: rgba(0,255,136,0.1);  border-color: rgba(0,255,136,0.25); }
+
+  /* ─────────────────────────────────────────────
+     TWO-COLUMN LAYOUT
+  ───────────────────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 28px;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* ─────────────────────────────────────────────
+     PROGRESS BAR
+  ───────────────────────────────────────────── */
+  #progress-bar {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    z-index: 100;
+    box-shadow: 0 0 10px rgba(0,240,255,0.6);
+  }
+
+  /* ─────────────────────────────────────────────
+     NAV ARROWS
+  ───────────────────────────────────────────── */
+  .nav-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(13,21,41,0.8);
+    border: 1px solid var(--border);
+    color: var(--cyan);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 50;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-btn:hover { background: rgba(0,240,255,0.1); box-shadow: var(--glow-c); }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; }
+  #prev-btn { left: 16px; }
+  #next-btn { right: 16px; }
+
+  /* ─────────────────────────────────────────────
+     SLIDE COUNTER
+  ───────────────────────────────────────────── */
+  #slide-counter {
+    position: fixed;
+    bottom: 16px; right: 24px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    z-index: 100;
+  }
+
+  /* ─────────────────────────────────────────────
+     BAR CHART (CSS)
+  ───────────────────────────────────────────── */
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    height: 200px;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  .bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .bar-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+
+  .bar {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    min-height: 4px;
+    transition: height 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .bar-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* ─────────────────────────────────────────────
+     PIE CHART (CSS conic-gradient)
+  ───────────────────────────────────────────── */
+  .pie-chart {
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--cyan)   0% 40%,
+      var(--green)  40% 65%,
+      #9f7aea       65% 80%,
+      var(--yellow) 80% 90%,
+      var(--red)    90% 100%
+    );
+    box-shadow: 0 0 40px rgba(0,240,255,0.2);
+    flex-shrink: 0;
+  }
+
+  .pie-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(240,244,255,0.85);
+  }
+
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ─────────────────────────────────────────────
+     ATTACK SURFACE GRID
+  ───────────────────────────────────────────── */
+  .attack-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .attack-node {
+    background: rgba(255,51,102,0.08);
+    border: 1px solid rgba(255,51,102,0.3);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .attack-node:hover {
+    background: rgba(255,51,102,0.15);
+    box-shadow: 0 0 20px rgba(255,51,102,0.3);
+    transform: translateY(-2px);
+  }
+
+  .attack-node .icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .attack-node .name { font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 0.5px; }
+
+  /* ─────────────────────────────────────────────
+     THREE PILLARS
+  ───────────────────────────────────────────── */
+  .pillar {
+    background: rgba(13,21,41,0.9);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.25s;
+  }
+
+  .pillar:hover { transform: translateY(-4px); }
+  .pillar .icon { font-size: 42px; }
+  .pillar h3 { font-size: 1.1rem; }
+  .pillar p  { font-size: 0.88rem; }
+
+  /* ─────────────────────────────────────────────
+     TIMELINE
+  ───────────────────────────────────────────── */
+  .timeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--cyan);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    box-shadow: var(--glow-c);
+  }
+
+  .timeline-dot.green { border-color: var(--green); box-shadow: var(--glow-g); }
+
+  .timeline-content { text-align: center; }
+  .timeline-date { font-size: 11px; letter-spacing: 2px; color: var(--cyan); margin-bottom: 4px; }
+  .timeline-title { font-size: 13px; font-weight: 600; }
+  .timeline-desc { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ─────────────────────────────────────────────
+     COMPETITIVE MATRIX
+  ───────────────────────────────────────────── */
+  .matrix-container {
+    position: relative;
+    width: 520px; height: 400px;
+    border: 1px solid rgba(0,240,255,0.2);
+    border-radius: 12px;
+    background: rgba(13,21,41,0.6);
+  }
+
+  .matrix-container::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: rgba(0,240,255,0.15);
+  }
+
+  .matrix-container::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(0,240,255,0.15);
+  }
+
+  .matrix-label {
+    position: absolute;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .matrix-label.top    { top: 10px;    left: 50%; transform: translateX(-50%); color: var(--green); }
+  .matrix-label.bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .matrix-label.left   { left: 10px;   top: 50%;  transform: translateY(-50%) rotate(-90deg); }
+  .matrix-label.right  { right: 10px;  top: 50%;  transform: translateY(-50%) rotate(90deg); color: var(--cyan); }
+
+  .matrix-dot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .dot-circle {
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 10px;
+  }
+
+  .dot-name {
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ─────────────────────────────────────────────
+     ARCHITECTURE DIAGRAM
+  ───────────────────────────────────────────── */
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    max-width: 1050px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .arch-node {
+    background: rgba(13,21,41,0.9);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    text-align: center;
+    min-width: 110px;
+  }
+
+  .arch-node .icon { font-size: 24px; display: block; margin-bottom: 6px; }
+  .arch-node .label { font-size: 11px; font-weight: 600; color: var(--cyan); letter-spacing: 0.5px; }
+  .arch-node .sub   { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  .arch-arrow {
+    color: var(--cyan);
+    font-size: 20px;
+    margin: 0 4px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ─────────────────────────────────────────────
+     TEAM CARDS
+  ───────────────────────────────────────────── */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .team-card {
+    background: rgba(13,21,41,0.9);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .team-avatar {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--green));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+
+  .team-name   { font-size: 15px; font-weight: 700; }
+  .team-title  { font-size: 11px; color: var(--cyan); letter-spacing: 1px; text-transform: uppercase; }
+  .team-bio    { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ─────────────────────────────────────────────
+     COMPARABLES TABLE
+  ───────────────────────────────────────────── */
+  .comp-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+  }
+
+  .comp-table th, .comp-table td {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0,240,255,0.08);
+  }
+
+  .comp-table th {
+    color: var(--cyan);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(0,240,255,0.04);
+  }
+
+  .comp-table tr:last-child td { border-bottom: none; }
+
+  .comp-table .highlight td {
+    background: rgba(0,240,255,0.06);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────────────
+     GOVERNMENT SLIDE
+  ───────────────────────────────────────────── */
+  .agency-badge {
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.25);
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────────────
+     WHY WE WIN
+  ───────────────────────────────────────────── */
+  .win-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 24px;
+    background: rgba(13,21,41,0.8);
+    border-left: 3px solid var(--cyan);
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 16px;
+  }
+
+  .win-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--cyan);
+    opacity: 0.3;
+    line-height: 1;
+    min-width: 50px;
+  }
+
+  .win-content h3 { font-size: 1.1rem; margin-bottom: 4px; }
+  .win-content p  { font-size: 0.88rem; color: var(--muted); }
+
+  /* ─────────────────────────────────────────────
+     BUSINESS MODEL
+  ───────────────────────────────────────────── */
+  .biz-tier {
+    background: rgba(13,21,41,0.9);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .biz-tier .tier-icon { font-size: 32px; margin-bottom: 10px; }
+  .biz-tier .tier-name { font-size: 13px; font-weight: 700; color: var(--cyan); margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; }
+  .biz-tier .tier-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .biz-tier .tier-price { font-size: 20px; font-weight: 800; color: var(--white); margin: 8px 0 4px; }
+
+  /* ─────────────────────────────────────────────
+     CLOSING SLIDE
+  ───────────────────────────────────────────── */
+  .closing-quote {
+    font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .closing-quote em {
+    font-style: normal;
+    color: var(--cyan);
+  }
+
+  /* ─────────────────────────────────────────────
+     DECORATIVE ELEMENTS
+  ───────────────────────────────────────────── */
+  .hex-bg {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,240,255,0.04) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .corner-deco {
+    position: absolute;
+    width: 200px; height: 200px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .corner-deco.tl { top: 0; left: 0;  border-top: 2px solid rgba(0,240,255,0.1); border-left:  2px solid rgba(0,240,255,0.1); border-radius: 0 0 100% 0; }
+  .corner-deco.br { bottom: 0; right: 0; border-bottom: 2px solid rgba(0,240,255,0.1); border-right: 2px solid rgba(0,240,255,0.1); border-radius: 100% 0 0 0; }
+
+  /* ─────────────────────────────────────────────
+     KEYBOARD HINT
+  ───────────────────────────────────────────── */
+  #key-hint {
+    position: fixed;
+    bottom: 16px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(122,138,170,0.5);
+    z-index: 100;
+  }
+
+  /* ─────────────────────────────────────────────
+     LOGO MARK
+  ───────────────────────────────────────────── */
+  .logomark {
+    position: fixed;
+    top: 24px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; align-items: center; gap: 10px;
+    z-index: 50;
+    opacity: 0.7;
+  }
+
+  .logomark span { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--cyan); }
+
+  /* ─────────────────────────────────────────────
+     RESPONSIVE
+  ───────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .slide { padding: 48px 32px 70px; }
+    .two-col, .three-col { grid-template-columns: 1fr; gap: 20px; }
+    .attack-grid { grid-template-columns: repeat(2, 1fr); }
+    .team-grid   { grid-template-columns: repeat(2, 1fr); }
+    .arch-flow   { flex-direction: column; gap: 8px; }
+    .arch-arrow  { transform: rotate(90deg); }
+    .matrix-container { width: 320px; height: 320px; }
+    .timeline    { flex-direction: column; gap: 20px; }
+    .timeline::before { width: 2px; height: 100%; top: 0; left: 24px; }
+  }
+
+  @media (max-width: 600px) {
+    .slide { padding: 40px 20px 60px; }
+    .attack-grid { grid-template-columns: repeat(2, 1fr); }
+    .team-grid   { grid-template-columns: 1fr 1fr; }
+    .bar-chart   { gap: 10px; }
+    h2 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DECK -->
+<div id="deck">
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 01 — TITLE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide active" data-slide="1">
+    <div class="hex-bg"></div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:28px; max-width:800px;">
+      <div style="font-size:80px; filter:drop-shadow(0 0 30px rgba(0,240,255,0.5));">🛡️</div>
+
+      <div>
+        <div class="eyebrow">Investor Presentation · Q4 2026</div>
+        <h1 style="font-size:clamp(3rem,7vw,6.5rem); background:linear-gradient(135deg,#fff 30%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+          SentinelMind<br><span style="background:linear-gradient(90deg,var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">AI</span>
+        </h1>
+      </div>
+
+      <div style="width:120px; height:2px; background:linear-gradient(90deg,var(--cyan),var(--green));border-radius:2px;"></div>
+
+      <p style="font-size:clamp(1.1rem,2vw,1.5rem); letter-spacing:4px; text-transform:uppercase; color:var(--cyan); font-weight:300;">
+        Securing the AI Era
+      </p>
+
+      <div style="display:flex; gap:40px; margin-top:12px;">
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Category</div>
+          <div style="font-size:14px; font-weight:600; color:var(--white);">AI-Native Cybersecurity</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Stage</div>
+          <div style="font-size:14px; font-weight:600; color:var(--white);">Series A / Pre-IPO</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Raise</div>
+          <div style="font-size:14px; font-weight:600; color:var(--cyan);">$25M</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 02 — THE PROBLEM
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="2">
+    <div class="slide-label">The Problem</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:36px;">
+      <div>
+        <div class="eyebrow">The Crisis Nobody Talks About</div>
+        <h2>AI is everywhere. <span class="red-text">Security is nowhere.</span></h2>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box card-red">
+          <div class="stat-number" style="color:var(--red);">3,000%</div>
+          <div class="stat-label">Increase in AI-specific attacks since 2024</div>
+        </div>
+        <div class="stat-box card-red">
+          <div class="stat-number" style="color:var(--red);">78%</div>
+          <div class="stat-label">Enterprises with zero AI-specific security</div>
+        </div>
+        <div class="stat-box card-cyan">
+          <div class="stat-number" style="color:var(--cyan);">$4.5T</div>
+          <div class="stat-label">AI infrastructure deployed with no native protection</div>
+        </div>
+        <div class="stat-box card-green">
+          <div class="stat-number" style="color:var(--green);">$0</div>
+          <div class="stat-label">Spent on AI-native security by most enterprises today</div>
+        </div>
+      </div>
+
+      <ul class="bullet-list" style="max-width:800px;">
+        <li>
+          <span class="icon red">⚠️</span>
+          <span>Every company deploying AI creates entirely <strong>new, unprotected attack surfaces</strong> that traditional tools can't detect.</span>
+        </li>
+        <li>
+          <span class="icon red">🔓</span>
+          <span>Firewalls, EDR, and SIEMs were built for the last decade. <strong>They are blind to prompt injection, model poisoning, and deepfake fraud.</strong></span>
+        </li>
+        <li>
+          <span class="icon red">📈</span>
+          <span>As AI adoption accelerates, the gap between attack sophistication and defensive capability <strong>widens exponentially.</strong></span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 03 — THE ATTACK SURFACE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="3">
+    <div class="slide-label">The Attack Surface</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">Attack Vectors Unique to AI</div>
+        <h2>The AI <span class="red-text">Threat Landscape</span></h2>
+        <p style="max-width:600px; margin:12px auto 0;">AI systems expose 8 novel attack surfaces that existing security tools were never designed to address.</p>
+      </div>
+
+      <div class="attack-grid">
+        <div class="attack-node">
+          <span class="icon">💉</span>
+          <div class="name">Prompt Injection</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">☣️</span>
+          <div class="name">Model Poisoning</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">🎭</span>
+          <div class="name">Deepfakes</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">🔓</span>
+          <div class="name">Jailbreaking</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">🕵️</span>
+          <div class="name">Data Extraction</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">⚡</span>
+          <div class="name">Adversarial Inputs</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">🧬</span>
+          <div class="name">Model Theft</div>
+        </div>
+        <div class="attack-node">
+          <span class="icon">🔗</span>
+          <div class="name">Supply Chain Attacks</div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,51,102,0.08); border:1px solid rgba(255,51,102,0.25); border-radius:12px; padding:16px 28px; text-align:center; max-width:700px;">
+        <span style="color:var(--red); font-weight:600; font-size:14px;">⚡ Zero of these attack vectors are covered by traditional cybersecurity tools.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 04 — THE SOLUTION
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="4">
+    <div class="slide-label">The Solution</div>
+    <div class="hex-bg"></div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:36px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">SentinelMind AI Platform</div>
+        <h2>One platform. <span class="gradient-text">Complete AI protection.</span></h2>
+        <p style="max-width:600px; margin:12px auto 0; font-size:1rem;">"Built for AI, by AI." — The world's first unified security platform purpose-built for the AI era.</p>
+      </div>
+
+      <div class="three-col" style="max-width:1000px;">
+        <div class="pillar card-cyan">
+          <span class="icon">🧠</span>
+          <h3 style="color:var(--cyan);">Model Security</h3>
+          <p>Scan, monitor, and harden every AI model in your stack. Detect prompt injection, poisoning, and jailbreak vulnerabilities before they're exploited.</p>
+        </div>
+        <div class="pillar card-green">
+          <span class="icon">🎯</span>
+          <h3 style="color:var(--green);">Deepfake Defense</h3>
+          <p>Real-time detection of AI-generated audio, video, and images with 99.7% accuracy. Protect identity verification, executive communications, and financial transactions.</p>
+        </div>
+        <div class="pillar card-cyan">
+          <span class="icon">🔭</span>
+          <h3 style="color:var(--cyan);">AI Threat Intel</h3>
+          <p>Dark web surveillance for AI exploits. Automated red-teaming. The first CVE database purpose-built for AI vulnerabilities.</p>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:48px; align-items:center; justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Response Time</div>
+          <div style="font-size:1.8rem; font-weight:800; color:var(--green);">&lt;1ms</div>
+        </div>
+        <div style="width:1px; height:40px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Accuracy</div>
+          <div style="font-size:1.8rem; font-weight:800; color:var(--cyan);">99.7%</div>
+        </div>
+        <div style="width:1px; height:40px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Deployment</div>
+          <div style="font-size:1.8rem; font-weight:800; color:var(--green);">Cloud / On-Prem</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 05 — PRODUCT: MODEL SECURITY SCANNER
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="5">
+    <div class="slide-label">Product · 01</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div class="two-col" style="max-width:1100px; align-items:center;">
+      <div>
+        <div class="eyebrow">Product Suite</div>
+        <h2><span class="cyan-text">Model Security</span> Scanner</h2>
+        <p style="margin:12px 0 24px; font-size:1rem;">The first comprehensive scanner built to protect AI models across your entire stack — from development to production.</p>
+
+        <ul class="bullet-list">
+          <li>
+            <span class="icon">🧠</span>
+            <span>Scans <strong>LLMs, vision models, and audio models</strong> for known and emerging vulnerabilities</span>
+          </li>
+          <li>
+            <span class="icon">💉</span>
+            <span>Detects <strong>prompt injection, data poisoning,</strong> and jailbreak attack vectors</span>
+          </li>
+          <li>
+            <span class="icon">📡</span>
+            <span><strong>Continuous monitoring</strong> — not just point-in-time scans. Alerts in real-time as new threats emerge</span>
+          </li>
+          <li>
+            <span class="icon">🔗</span>
+            <span>Integrates with <strong>CI/CD pipelines</strong> — security baked into your AI development workflow</span>
+          </li>
+          <li>
+            <span class="icon">📊</span>
+            <span>Compliance reports for <strong>NIST AI RMF, ISO 42001,</strong> and enterprise security frameworks</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="card card-cyan">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--cyan); text-transform:uppercase; margin-bottom:8px;">Coverage</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div style="background:rgba(0,240,255,0.06); border-radius:8px; padding:12px; text-align:center;">
+              <div style="font-size:1.5rem; font-weight:800; color:var(--cyan);">250+</div>
+              <div style="font-size:11px; color:var(--muted);">Attack Patterns</div>
+            </div>
+            <div style="background:rgba(0,240,255,0.06); border-radius:8px; padding:12px; text-align:center;">
+              <div style="font-size:1.5rem; font-weight:800; color:var(--cyan);">40+</div>
+              <div style="font-size:11px; color:var(--muted);">Model Architectures</div>
+            </div>
+            <div style="background:rgba(0,240,255,0.06); border-radius:8px; padding:12px; text-align:center;">
+              <div style="font-size:1.5rem; font-weight:800; color:var(--green);">99.4%</div>
+              <div style="font-size:11px; color:var(--muted);">Detection Rate</div>
+            </div>
+            <div style="background:rgba(0,240,255,0.06); border-radius:8px; padding:12px; text-align:center;">
+              <div style="font-size:1.5rem; font-weight:800; color:var(--green);">&lt;0.1%</div>
+              <div style="font-size:11px; color:var(--muted);">False Positive Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-green">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--green); text-transform:uppercase; margin-bottom:8px;">Supported Model Types</div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.2); border-radius:6px; padding:4px 10px; font-size:12px;">GPT-class LLMs</span>
+            <span style="background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.2); border-radius:6px; padding:4px 10px; font-size:12px;">Vision Models</span>
+            <span style="background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.2); border-radius:6px; padding:4px 10px; font-size:12px;">Audio AI</span>
+            <span style="background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.2); border-radius:6px; padding:4px 10px; font-size:12px;">Code Models</span>
+            <span style="background:rgba(0,255,136,0.1); border:1px solid rgba(0,255,136,0.2); border-radius:6px; padding:4px 10px; font-size:12px;">Fine-tuned Models</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 06 — PRODUCT: DEEPFAKE DEFENSE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="6">
+    <div class="slide-label">Product · 02</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div class="two-col" style="max-width:1100px; align-items:center;">
+      <div>
+        <div class="eyebrow">Product Suite</div>
+        <h2><span class="green-text">Deepfake</span> Defense</h2>
+        <p style="margin:12px 0 24px;">Real-time AI-generated content detection at enterprise scale. When seeing is no longer believing, SentinelMind restores trust.</p>
+
+        <ul class="bullet-list">
+          <li>
+            <span class="icon green">🎥</span>
+            <span><strong>Video deepfake detection</strong> — analyze face swaps, voice cloning, synthetic media in real-time</span>
+          </li>
+          <li>
+            <span class="icon green">🎙️</span>
+            <span><strong>Audio authentication</strong> — detect voice clones during live calls, before wires transfer</span>
+          </li>
+          <li>
+            <span class="icon green">🖼️</span>
+            <span><strong>Image forensics</strong> — detect AI-generated imagery in documents, IDs, and media</span>
+          </li>
+          <li>
+            <span class="icon green">⚡</span>
+            <span><strong>Sub-100ms latency</strong> — seamlessly integrates into existing verification workflows</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:20px; align-items:center;">
+        <div style="text-align:center; padding:36px 48px; background:rgba(0,255,136,0.05); border:2px solid rgba(0,255,136,0.3); border-radius:20px; box-shadow:var(--glow-g);">
+          <div style="font-size:4rem; font-weight:900; color:var(--green); line-height:1; margin-bottom:8px;">99.7%</div>
+          <div style="font-size:14px; letter-spacing:2px; text-transform:uppercase; color:var(--muted);">Detection Accuracy</div>
+        </div>
+
+        <div style="width:100%; display:flex; flex-direction:column; gap:12px;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:4px;">Key Verticals</div>
+          <div class="agency-badge">
+            <span>🏦</span>
+            <span>Financial Services — Wire fraud prevention, CEO authentication</span>
+          </div>
+          <div class="agency-badge">
+            <span>🏛️</span>
+            <span>Government & Intelligence — Secure communications verification</span>
+          </div>
+          <div class="agency-badge">
+            <span>🪪</span>
+            <span>Identity Verification — KYC/AML deepfake defense</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 07 — PRODUCT: AI THREAT INTELLIGENCE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="7">
+    <div class="slide-label">Product · 03</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div class="two-col" style="max-width:1100px; align-items:center;">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div style="padding:28px; background:rgba(0,240,255,0.05); border:1px solid rgba(0,240,255,0.2); border-radius:16px; text-align:center;">
+          <div style="font-size:2.5rem; font-weight:900; color:var(--cyan); margin-bottom:4px;">1,200+</div>
+          <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:2px;">AI-specific CVEs in Database</div>
+        </div>
+        <div style="padding:28px; background:rgba(0,240,255,0.05); border:1px solid rgba(0,240,255,0.2); border-radius:16px; text-align:center;">
+          <div style="font-size:2.5rem; font-weight:900; color:var(--green); margin-bottom:4px;">24/7</div>
+          <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:2px;">Dark Web AI Threat Monitoring</div>
+        </div>
+        <div style="padding:28px; background:rgba(0,240,255,0.05); border:1px solid rgba(0,240,255,0.2); border-radius:16px; text-align:center;">
+          <div style="font-size:2.5rem; font-weight:900; color:var(--cyan); margin-bottom:4px;">300+</div>
+          <div style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:2px;">Threat Actor Profiles</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow">Product Suite</div>
+        <h2><span class="cyan-text">AI Threat</span> Intelligence</h2>
+        <p style="margin:12px 0 24px;">The intelligence layer that keeps you ahead of the adversary. Know what's coming before it hits.</p>
+
+        <ul class="bullet-list">
+          <li>
+            <span class="icon">🌑</span>
+            <span><strong>Dark web monitoring</strong> — surface AI exploits, leaked model weights, and attack kits in real time</span>
+          </li>
+          <li>
+            <span class="icon">🤖</span>
+            <span><strong>Automated red-teaming</strong> — continuously probe your AI systems using adversarial AI</span>
+          </li>
+          <li>
+            <span class="icon">📋</span>
+            <span>World's first <strong>AI-specific CVE database</strong> — standardized vulnerability scoring for AI systems</span>
+          </li>
+          <li>
+            <span class="icon">🎯</span>
+            <span><strong>Threat actor profiling</strong> — attributing AI-specific attacks to nation-state and criminal groups</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 08 — PRODUCT: PROMPT INJECTION FIREWALL
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="8">
+    <div class="slide-label">Product · 04</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">Product Suite</div>
+        <h2>Prompt Injection <span class="red-text">Firewall</span></h2>
+        <p style="max-width:600px; margin:10px auto 0;">Sits inline between users and AI models. Blocks malicious prompts before they ever reach the model. Zero-latency architecture.</p>
+      </div>
+
+      <!-- Architecture visual -->
+      <div style="display:flex; align-items:center; gap:0; width:100%; max-width:900px; justify-content:center; flex-wrap:wrap;">
+        <div style="background:rgba(255,51,102,0.08); border:1px solid rgba(255,51,102,0.3); border-radius:12px; padding:20px 24px; text-align:center; min-width:140px;">
+          <div style="font-size:28px; margin-bottom:6px;">👤</div>
+          <div style="font-size:12px; font-weight:600; color:var(--red);">User Input</div>
+          <div style="font-size:10px; color:var(--muted); margin-top:4px;">Potentially malicious</div>
+        </div>
+        <div style="color:var(--red); font-size:28px; margin:0 8px; opacity:0.8;">→</div>
+
+        <div style="background:rgba(0,240,255,0.1); border:2px solid var(--cyan); border-radius:12px; padding:24px 32px; text-align:center; min-width:180px; box-shadow:var(--glow-c);">
+          <div style="font-size:28px; margin-bottom:6px;">🛡️</div>
+          <div style="font-size:14px; font-weight:700; color:var(--cyan);">SentinelMind</div>
+          <div style="font-size:11px; color:var(--cyan); opacity:0.7; margin-top:3px;">Prompt Firewall</div>
+          <div style="margin-top:10px; display:flex; flex-direction:column; gap:4px;">
+            <div style="background:rgba(0,255,136,0.1); border-radius:4px; padding:3px 8px; font-size:10px; color:var(--green);">✓ Pattern Analysis</div>
+            <div style="background:rgba(0,255,136,0.1); border-radius:4px; padding:3px 8px; font-size:10px; color:var(--green);">✓ Intent Classification</div>
+            <div style="background:rgba(0,255,136,0.1); border-radius:4px; padding:3px 8px; font-size:10px; color:var(--green);">✓ Context Scoring</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; margin:0 8px; align-items:center;">
+          <div style="color:var(--red); font-size:14px; font-weight:700; text-align:center;">
+            <div style="font-size:20px;">🚫</div>
+            <div>BLOCKED</div>
+          </div>
+          <div style="color:var(--green); font-size:14px; font-weight:700; text-align:center;">
+            <div style="font-size:20px;">✓</div>
+            <div>PASS</div>
+          </div>
+        </div>
+
+        <div style="color:var(--green); font-size:28px; margin:0 8px; opacity:0.8;">→</div>
+        <div style="background:rgba(0,255,136,0.08); border:1px solid rgba(0,255,136,0.25); border-radius:12px; padding:20px 24px; text-align:center; min-width:140px;">
+          <div style="font-size:28px; margin-bottom:6px;">🤖</div>
+          <div style="font-size:12px; font-weight:600; color:var(--green);">AI Model</div>
+          <div style="font-size:10px; color:var(--muted); margin-top:4px;">Protected &amp; clean</div>
+        </div>
+      </div>
+
+      <div class="stat-grid" style="max-width:900px;">
+        <div class="stat-box card-cyan">
+          <div class="stat-number" style="color:var(--cyan);">&lt;0.5ms</div>
+          <div class="stat-label">Average firewall latency</div>
+        </div>
+        <div class="stat-box card-green">
+          <div class="stat-number" style="color:var(--green);">99.6%</div>
+          <div class="stat-label">Injection attack block rate</div>
+        </div>
+        <div class="stat-box card-cyan">
+          <div class="stat-number" style="color:var(--cyan);">10M+</div>
+          <div class="stat-label">Prompts analyzed per day</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 09 — MARKET OPPORTUNITY
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="9">
+    <div class="slide-label">Market Opportunity</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px;">
+      <div>
+        <div class="eyebrow">Total Addressable Market</div>
+        <h2>A <span class="gradient-text">$65B opportunity</span> by 2030</h2>
+      </div>
+
+      <div class="two-col" style="align-items:start; gap:48px;">
+        <!-- Bar Chart: Total Cyber -->
+        <div>
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:16px;">Total Cybersecurity Market ($B)</div>
+          <div class="bar-chart">
+            <div class="bar-group">
+              <div class="bar-value">$200B</div>
+              <div class="bar" style="height:60%; background:linear-gradient(to top, rgba(0,240,255,0.5), rgba(0,240,255,0.2));"></div>
+              <div class="bar-label">2026</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value">$245B</div>
+              <div class="bar" style="height:72%; background:linear-gradient(to top, rgba(0,240,255,0.55), rgba(0,240,255,0.25));"></div>
+              <div class="bar-label">2027</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value">$285B</div>
+              <div class="bar" style="height:82%; background:linear-gradient(to top, rgba(0,240,255,0.6), rgba(0,240,255,0.3));"></div>
+              <div class="bar-label">2028</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value">$315B</div>
+              <div class="bar" style="height:90%; background:linear-gradient(to top, rgba(0,240,255,0.65), rgba(0,240,255,0.35));"></div>
+              <div class="bar-label">2029</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value">$350B</div>
+              <div class="bar" style="height:100%; background:linear-gradient(to top, var(--cyan), rgba(0,240,255,0.4));"></div>
+              <div class="bar-label">2030</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Chart: AI Security -->
+        <div>
+          <div style="font-size:11px; letter-spacing:2px; color:var(--green); text-transform:uppercase; margin-bottom:16px;">AI Security Sub-Market ($B) · 40% CAGR</div>
+          <div class="bar-chart">
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$12B</div>
+              <div class="bar" style="height:18%; background:linear-gradient(to top, rgba(0,255,136,0.6), rgba(0,255,136,0.2));"></div>
+              <div class="bar-label">2026</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$18B</div>
+              <div class="bar" style="height:28%; background:linear-gradient(to top, rgba(0,255,136,0.65), rgba(0,255,136,0.25));"></div>
+              <div class="bar-label">2027</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$28B</div>
+              <div class="bar" style="height:43%; background:linear-gradient(to top, rgba(0,255,136,0.7), rgba(0,255,136,0.3));"></div>
+              <div class="bar-label">2028</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$44B</div>
+              <div class="bar" style="height:68%; background:linear-gradient(to top, rgba(0,255,136,0.75), rgba(0,255,136,0.35));"></div>
+              <div class="bar-label">2029</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$65B</div>
+              <div class="bar" style="height:100%; background:linear-gradient(to top, var(--green), rgba(0,255,136,0.4));"></div>
+              <div class="bar-label">2030</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(0,255,136,0.06); border:1px solid rgba(0,255,136,0.2); border-radius:12px; padding:16px 28px; display:flex; gap:40px; align-items:center; justify-content:center; flex-wrap:wrap;">
+        <span style="color:var(--green); font-weight:700; font-size:15px;">📈 AI Security growing 5× faster than traditional cybersecurity</span>
+        <span style="color:var(--muted); font-size:13px;">SentinelMind targets the fastest-growing segment of the fastest-growing tech category</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 10 — GOVERNMENT OPPORTUNITY
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="10">
+    <div class="slide-label">Government Opportunity</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px;">
+      <div>
+        <div class="eyebrow">Federal Market</div>
+        <h2>Government is <span class="green-text">mandating</span> AI security</h2>
+      </div>
+
+      <div class="two-col" style="align-items:start; gap:48px;">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div class="agency-badge">
+            <span style="font-size:28px;">🛡️</span>
+            <div>
+              <div style="font-weight:700; margin-bottom:2px;">Department of Defense</div>
+              <div style="font-size:12px; color:var(--muted);">AI safety mandates for all defense AI systems. SentinelMind aligned to DOD AI standards.</div>
+            </div>
+          </div>
+          <div class="agency-badge">
+            <span style="font-size:28px;">🔐</span>
+            <div>
+              <div style="font-weight:700; margin-bottom:2px;">NSA / Intelligence Community</div>
+              <div style="font-size:12px; color:var(--muted);">AI threat assessment requirements for classified systems. Active procurement.</div>
+            </div>
+          </div>
+          <div class="agency-badge">
+            <span style="font-size:28px;">🏛️</span>
+            <div>
+              <div style="font-weight:700; margin-bottom:2px;">CISA AI Security Mandate</div>
+              <div style="font-size:12px; color:var(--muted);">Critical infrastructure operators required to audit and secure AI deployments.</div>
+            </div>
+          </div>
+          <div class="agency-badge">
+            <span style="font-size:28px;">📜</span>
+            <div>
+              <div style="font-weight:700; margin-bottom:2px;">Executive Orders on AI Safety</div>
+              <div style="font-size:12px; color:var(--muted);">Federal contractors must comply with NIST AI RMF. SentinelMind is built on this framework.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="text-align:center; padding:36px; background:rgba(0,255,136,0.05); border:2px solid rgba(0,255,136,0.25); border-radius:20px;">
+            <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Federal AI Security TAM</div>
+            <div style="font-size:4rem; font-weight:900; color:var(--green); line-height:1;">$15B+</div>
+            <div style="font-size:14px; color:var(--muted); margin-top:8px;">by 2028</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div style="background:rgba(13,21,41,0.9); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;">
+              <div style="font-size:1.6rem; font-weight:800; color:var(--cyan);">FedRAMP</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:4px;">Authorization Path Active</div>
+            </div>
+            <div style="background:rgba(13,21,41,0.9); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center;">
+              <div style="font-size:1.6rem; font-weight:800; color:var(--green);">NIST</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:4px;">AI RMF Aligned</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 11 — COMPETITIVE LANDSCAPE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="11">
+    <div class="slide-label">Competitive Landscape</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div class="two-col" style="max-width:1100px; align-items:center; gap:48px;">
+      <div>
+        <div class="eyebrow">Competitive Positioning</div>
+        <h2>We own the <span class="gradient-text">AI-native enterprise</span> quadrant</h2>
+        <p style="margin:14px 0 24px; font-size:0.95rem;">Every competitor is either bolting AI security onto legacy platforms or serving niche use cases. SentinelMind is purpose-built for enterprise-scale AI security.</p>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:10px; background:rgba(0,240,255,0.1); border:1px solid rgba(0,240,255,0.3);">
+            <div style="width:12px; height:12px; border-radius:50%; background:var(--cyan); box-shadow:var(--glow-c);"></div>
+            <div><strong style="color:var(--cyan);">SentinelMind AI</strong> — <span style="font-size:12px; color:var(--muted);">AI-Native + Enterprise (top-right)</span></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; background:rgba(13,21,41,0.6);">
+            <div style="width:10px; height:10px; border-radius:50%; background:var(--muted);"></div>
+            <div style="font-size:13px; color:var(--muted);">CrowdStrike, Palo Alto — Bolt-on AI, Enterprise legacy</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; background:rgba(13,21,41,0.6);">
+            <div style="width:10px; height:10px; border-radius:50%; background:var(--muted);"></div>
+            <div style="font-size:13px; color:var(--muted);">HiddenLayer, CalypsoAI — AI-native but SMB/niche</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:10px 16px; border-radius:10px; background:rgba(255,51,102,0.08); border:1px solid rgba(255,51,102,0.2);">
+            <div style="width:10px; height:10px; border-radius:50%; background:var(--red);"></div>
+            <div style="font-size:13px; color:var(--muted);">Robust Intelligence — <span style="color:var(--red);">Acquired / market exit</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitive Matrix -->
+      <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <div class="matrix-container">
+          <div class="matrix-label top">Enterprise</div>
+          <div class="matrix-label bottom">SMB / Niche</div>
+          <div class="matrix-label left">Bolt-On</div>
+          <div class="matrix-label right">AI-Native</div>
+
+          <!-- SentinelMind (top-right) -->
+          <div class="matrix-dot" style="left:78%; top:18%;">
+            <div class="dot-circle" style="width:52px;height:52px;background:rgba(0,240,255,0.15);border:2px solid var(--cyan);box-shadow:var(--glow-c);">
+              <span style="font-size:18px;">🛡️</span>
+            </div>
+            <div class="dot-name" style="color:var(--cyan); font-weight:700;">SentinelMind</div>
+          </div>
+          <!-- CrowdStrike (top-left) -->
+          <div class="matrix-dot" style="left:20%; top:22%;">
+            <div class="dot-circle" style="width:40px;height:40px;background:rgba(122,138,170,0.1);border:1px solid var(--muted);">
+              <span style="font-size:14px; color:var(--muted);">CS</span>
+            </div>
+            <div class="dot-name">CrowdStrike</div>
+          </div>
+          <!-- Palo Alto (top-left) -->
+          <div class="matrix-dot" style="left:28%; top:35%;">
+            <div class="dot-circle" style="width:40px;height:40px;background:rgba(122,138,170,0.1);border:1px solid var(--muted);">
+              <span style="font-size:14px; color:var(--muted);">PA</span>
+            </div>
+            <div class="dot-name">Palo Alto</div>
+          </div>
+          <!-- HiddenLayer (bottom-right) -->
+          <div class="matrix-dot" style="left:70%; top:72%;">
+            <div class="dot-circle" style="width:34px;height:34px;background:rgba(122,138,170,0.08);border:1px solid rgba(122,138,170,0.4);">
+              <span style="font-size:12px; color:var(--muted);">HL</span>
+            </div>
+            <div class="dot-name">HiddenLayer</div>
+          </div>
+          <!-- CalypsoAI (bottom-right) -->
+          <div class="matrix-dot" style="left:60%; top:80%;">
+            <div class="dot-circle" style="width:34px;height:34px;background:rgba(122,138,170,0.08);border:1px solid rgba(122,138,170,0.4);">
+              <span style="font-size:12px; color:var(--muted);">CA</span>
+            </div>
+            <div class="dot-name">CalypsoAI</div>
+          </div>
+          <!-- Robust Intelligence (bottom-left) -->
+          <div class="matrix-dot" style="left:30%; top:78%;">
+            <div class="dot-circle" style="width:34px;height:34px;background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.3);">
+              <span style="font-size:12px; color:var(--red);">RI</span>
+            </div>
+            <div class="dot-name" style="color:var(--red);">Robust Intel ✕</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 12 — WHY WE WIN
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="12">
+    <div class="slide-label">Why We Win</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1000px; display:flex; flex-direction:column; gap:28px;">
+      <div>
+        <div class="eyebrow">Competitive Advantages</div>
+        <h2>Four unfair <span class="gradient-text">advantages</span></h2>
+      </div>
+
+      <div class="win-item">
+        <div class="win-num">01</div>
+        <div class="win-content">
+          <h3>AI-Native Architecture</h3>
+          <p>Not bolted onto legacy security stacks. Every layer of SentinelMind was architected from the ground up for AI systems, with AI-specific threat models, detection methods, and response workflows.</p>
+        </div>
+      </div>
+
+      <div class="win-item" style="border-left-color:var(--green);">
+        <div class="win-num" style="color:var(--green);">02</div>
+        <div class="win-content">
+          <h3>Full-Stack Coverage</h3>
+          <p>The only platform covering model security, deepfake defense, AND threat intelligence in one unified solution. Competitors cover at most one category.</p>
+        </div>
+      </div>
+
+      <div class="win-item">
+        <div class="win-num">03</div>
+        <div class="win-content">
+          <h3>Real-Time, Zero Latency</h3>
+          <p>Sub-millisecond response times across all products. No performance penalty for security. Enterprises can protect AI systems without compromising user experience.</p>
+        </div>
+      </div>
+
+      <div class="win-item" style="border-left-color:var(--green);">
+        <div class="win-num" style="color:var(--green);">04</div>
+        <div class="win-content">
+          <h3>Government-Ready from Day One</h3>
+          <p>NIST AI RMF aligned, FedRAMP authorization in progress. While competitors chase commercial enterprise, we're building the government moat that creates 10-year contracts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 13 — TECHNOLOGY ARCHITECTURE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="13">
+    <div class="slide-label">Technology</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:36px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">Platform Architecture</div>
+        <h2>Unified <span class="gradient-text">data flow</span> architecture</h2>
+        <p style="max-width:600px; margin:10px auto 0; font-size:0.95rem;">Every AI interaction flows through a layered security stack. Each layer specializes in one threat domain, delivering defense-in-depth without latency penalties.</p>
+      </div>
+
+      <!-- Architecture Flow -->
+      <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0; width:100%;">
+        <div class="arch-node" style="border-color:rgba(255,51,102,0.3); background:rgba(255,51,102,0.07);">
+          <span class="icon">📥</span>
+          <div class="label" style="color:var(--red);">Input</div>
+          <div class="sub">User / API</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node card-cyan">
+          <span class="icon">🔥</span>
+          <div class="label">Prompt<br>Firewall</div>
+          <div class="sub">&lt;0.5ms</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node card-cyan">
+          <span class="icon">🧠</span>
+          <div class="label">Model<br>Scanner</div>
+          <div class="sub">Continuous</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node card-green">
+          <span class="icon">🎭</span>
+          <div class="label">Deepfake<br>Detection</div>
+          <div class="sub">&lt;100ms</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node card-cyan">
+          <span class="icon">🔭</span>
+          <div class="label">Threat<br>Intel</div>
+          <div class="sub">24/7 Feed</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node card-green">
+          <span class="icon">📋</span>
+          <div class="label">Compliance<br>Engine</div>
+          <div class="sub">NIST / ISO</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node" style="border-color:rgba(0,255,136,0.3); background:rgba(0,255,136,0.06);">
+          <span class="icon">📊</span>
+          <div class="label" style="color:var(--green);">Reporting</div>
+          <div class="sub">Dashboard</div>
+        </div>
+      </div>
+
+      <!-- Tech badges -->
+      <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+        <span style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--cyan);">Transformer-based Detection</span>
+        <span style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--cyan);">Graph Neural Networks</span>
+        <span style="background:rgba(0,255,136,0.07); border:1px solid rgba(0,255,136,0.2); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--green);">Zero-Trust Architecture</span>
+        <span style="background:rgba(0,255,136,0.07); border:1px solid rgba(0,255,136,0.2); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--green);">Air-Gap Compatible</span>
+        <span style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--cyan);">Multi-Cloud Native</span>
+        <span style="background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2); border-radius:20px; padding:6px 16px; font-size:12px; color:var(--cyan);">On-Prem Deployable</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 14 — TRACTION & MILESTONES
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="14">
+    <div class="slide-label">Traction & Milestones</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:40px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">Execution Track Record</div>
+        <h2>From <span class="cyan-text">zero to Nasdaq</span> in 12 months</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">🚀</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q3 2026</div>
+            <div class="timeline-title">Company Founded</div>
+            <div class="timeline-desc">Seed round closed, core team assembled, IP secured</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">⚡</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q4 2026</div>
+            <div class="timeline-title">Platform Beta</div>
+            <div class="timeline-desc">All 4 products in closed beta. 15 design partners onboarded</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot green">💼</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q1 2027</div>
+            <div class="timeline-title">First Enterprise Customers</div>
+            <div class="timeline-desc">GA launch, first paid enterprise contracts signed</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot green">🏛️</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q2 2027</div>
+            <div class="timeline-title">Government Pilot</div>
+            <div class="timeline-desc">DOD pilot program, FedRAMP authorization initiated</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot green">📈</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Q3 2027</div>
+            <div class="timeline-title">Series A / Nasdaq</div>
+            <div class="timeline-desc">$25M raise or Nasdaq direct listing. International expansion</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-grid" style="max-width:900px;">
+        <div class="stat-box card-green">
+          <div class="stat-number" style="color:var(--green);">15</div>
+          <div class="stat-label">Design Partner Enterprises</div>
+        </div>
+        <div class="stat-box card-cyan">
+          <div class="stat-number" style="color:var(--cyan);">3</div>
+          <div class="stat-label">Government LOIs Signed</div>
+        </div>
+        <div class="stat-box card-green">
+          <div class="stat-number" style="color:var(--green);">$1.2M</div>
+          <div class="stat-label">Pipeline ARR (Q4 2026)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 15 — BUSINESS MODEL
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="15">
+    <div class="slide-label">Business Model</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px;">
+      <div>
+        <div class="eyebrow">Revenue Model</div>
+        <h2>High-margin <span class="gradient-text">SaaS + Government</span> contracts</h2>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:20px;">
+        <div class="biz-tier card-cyan">
+          <div class="tier-icon">🤖</div>
+          <div class="tier-name">Per-Model Pricing</div>
+          <div class="tier-price">$2,500<span style="font-size:14px; color:var(--muted);">/model/mo</span></div>
+          <div class="tier-desc">Enterprise pay per AI model protected. Scales with AI adoption — built-in expansion revenue.</div>
+        </div>
+        <div class="biz-tier card-green">
+          <div class="tier-icon">🏢</div>
+          <div class="tier-name">Platform License</div>
+          <div class="tier-price">$500K<span style="font-size:14px; color:var(--muted);">/year</span></div>
+          <div class="tier-desc">Unlimited models, all 4 products. Full enterprise suite with dedicated support and SLA.</div>
+        </div>
+        <div class="biz-tier card-cyan">
+          <div class="tier-icon">🏛️</div>
+          <div class="tier-name">Gov Contracts</div>
+          <div class="tier-price">$2M–10M<span style="font-size:14px; color:var(--muted);">/year</span></div>
+          <div class="tier-desc">Multi-year federal contracts. High ACV, non-cancelable, sticky. DOD / IC / civilian agencies.</div>
+        </div>
+        <div class="biz-tier card-green">
+          <div class="tier-icon">📈</div>
+          <div class="tier-name">Expansion Revenue</div>
+          <div class="tier-price">130%+<span style="font-size:14px; color:var(--muted);"> NRR</span></div>
+          <div class="tier-desc">Every new AI model a customer deploys = new SentinelMind revenue. AI growth drives our growth.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:40px; align-items:center; justify-content:center; flex-wrap:wrap;">
+        <div style="text-align:center; padding:20px 32px; background:rgba(0,240,255,0.06); border:1px solid rgba(0,240,255,0.2); border-radius:12px;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:4px;">Gross Margins</div>
+          <div style="font-size:2.2rem; font-weight:900; color:var(--cyan);">85%+</div>
+        </div>
+        <div style="text-align:center; padding:20px 32px; background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:12px;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:4px;">Avg Contract Length</div>
+          <div style="font-size:2.2rem; font-weight:900; color:var(--green);">3 Years</div>
+        </div>
+        <div style="text-align:center; padding:20px 32px; background:rgba(0,240,255,0.06); border:1px solid rgba(0,240,255,0.2); border-radius:12px;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:4px;">Revenue Recurring</div>
+          <div style="font-size:2.2rem; font-weight:900; color:var(--cyan);">95%+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 16 — FINANCIAL PROJECTIONS
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="16">
+    <div class="slide-label">Financial Projections</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px;">
+      <div>
+        <div class="eyebrow">5-Year Financial Model</div>
+        <h2>Path to <span class="green-text">$250M ARR</span></h2>
+        <p style="margin-top:8px;">85%+ gross margins throughout. FCF positive by Year 3.</p>
+      </div>
+
+      <div style="display:flex; gap:40px; align-items:flex-end;">
+        <!-- Main bar chart -->
+        <div style="flex:1;">
+          <div class="bar-chart" style="height:260px; align-items:flex-end;">
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--cyan);">$2M</div>
+              <div class="bar" style="height:0.8%; background:linear-gradient(to top, var(--cyan), rgba(0,240,255,0.3)); min-height:8px;"></div>
+              <div class="bar-label">Year 1<br><span style="color:var(--muted); font-size:9px;">2027</span></div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--cyan);">$12M</div>
+              <div class="bar" style="height:5%; background:linear-gradient(to top, var(--cyan), rgba(0,240,255,0.3)); min-height:12px;"></div>
+              <div class="bar-label">Year 2<br><span style="color:var(--muted); font-size:9px;">2028</span></div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$45M</div>
+              <div class="bar" style="height:18%; background:linear-gradient(to top, var(--green), rgba(0,255,136,0.3));"></div>
+              <div class="bar-label">Year 3<br><span style="color:var(--muted); font-size:9px;">2029</span></div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--green);">$110M</div>
+              <div class="bar" style="height:44%; background:linear-gradient(to top, var(--green), rgba(0,255,136,0.3));"></div>
+              <div class="bar-label">Year 4<br><span style="color:var(--muted); font-size:9px;">2030</span></div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-value" style="color:var(--cyan);">$250M</div>
+              <div class="bar" style="height:100%; background:linear-gradient(to top, var(--cyan), var(--green), rgba(0,240,255,0.4));"></div>
+              <div class="bar-label">Year 5<br><span style="color:var(--muted); font-size:9px;">2031</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right-side metrics -->
+        <div style="display:flex; flex-direction:column; gap:14px; min-width:220px;">
+          <div style="background:rgba(13,21,41,0.9); border:1px solid var(--border); border-radius:12px; padding:16px 20px;">
+            <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">YoY Growth</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--cyan);">2.3×</div>
+            <div style="font-size:11px; color:var(--muted);">Average annual ARR growth</div>
+          </div>
+          <div style="background:rgba(13,21,41,0.9); border:1px solid var(--border); border-radius:12px; padding:16px 20px;">
+            <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">Gross Margin</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--green);">85%+</div>
+            <div style="font-size:11px; color:var(--muted);">Consistent through Year 5</div>
+          </div>
+          <div style="background:rgba(13,21,41,0.9); border:1px solid var(--border); border-radius:12px; padding:16px 20px;">
+            <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:6px;">FCF Positive</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--cyan);">Year 3</div>
+            <div style="font-size:11px; color:var(--muted);">2029 breakeven on FCF basis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 17 — TEAM
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="17">
+    <div class="slide-label">Team</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">Leadership Team</div>
+        <h2>Built by those who've <span class="gradient-text">defended the frontier</span></h2>
+        <p style="max-width:600px; margin:10px auto 0;">Our team comes from the highest-stakes AI and cybersecurity environments in the world — government, military, Big Tech, and leading security companies.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card card-cyan">
+          <div class="team-avatar">👤</div>
+          <div class="team-name">[CEO Name]</div>
+          <div class="team-title">Chief Executive Officer</div>
+          <div class="team-bio">15+ years at the intersection of AI and cybersecurity. Former VP Security at a Fortune 100 tech company. Led two successful exits. Advisor to NIST AI RMF working group.</div>
+        </div>
+        <div class="team-card card-green">
+          <div class="team-avatar" style="background:linear-gradient(135deg, var(--green), var(--cyan));">👤</div>
+          <div class="team-name">[CTO Name]</div>
+          <div class="team-title">Chief Technology Officer</div>
+          <div class="team-bio">Ex-NSA Tailored Access Operations. DARPA AI security researcher. Holds 12 patents in adversarial ML and anomaly detection. Architected classified AI defense systems.</div>
+        </div>
+        <div class="team-card card-cyan">
+          <div class="team-avatar">👤</div>
+          <div class="team-name">[VP Eng Name]</div>
+          <div class="team-title">VP Engineering</div>
+          <div class="team-bio">Former Senior Principal Engineer at CrowdStrike. Built core detection engine powering billions of endpoints. Expert in real-time security systems at scale.</div>
+        </div>
+        <div class="team-card card-green">
+          <div class="team-avatar" style="background:linear-gradient(135deg, var(--green), var(--cyan));">👤</div>
+          <div class="team-name">[Research Lead Name]</div>
+          <div class="team-title">Head of AI Research</div>
+          <div class="team-bio">PhD in Adversarial Machine Learning, MIT. Former Google DeepMind researcher. Published 30+ papers on AI robustness, prompt injection, and model security. Pioneer in AI red-teaming.</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:40px; justify-content:center; flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--cyan);">40+</div>
+          <div style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Team Members</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--green);">3</div>
+          <div style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Prior Exits</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--cyan);">20+</div>
+          <div style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">Gov / IC Vets</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--green);">50+</div>
+          <div style="font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase;">AI Patents</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 18 — USE OF PROCEEDS
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="18">
+    <div class="slide-label">Use of Proceeds</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1000px; display:flex; flex-direction:column; gap:32px; align-items:center;">
+      <div style="text-align:center;">
+        <div class="eyebrow">$25M Series A</div>
+        <h2>Deploying capital for <span class="gradient-text">maximum velocity</span></h2>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:60px; justify-content:center; flex-wrap:wrap;">
+        <!-- Pie Chart -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+          <div class="pie-chart"></div>
+          <div style="font-size:11px; color:var(--muted); letter-spacing:1px;">$25M Total Raise</div>
+        </div>
+
+        <!-- Legend + details -->
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(13,21,41,0.9); border-radius:12px; border:1px solid var(--border);">
+            <div class="legend-dot" style="width:14px;height:14px;background:var(--cyan); border-radius:3px;"></div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700;">R&amp;D</div>
+              <div style="font-size:11px; color:var(--muted);">Product development, AI research, patents</div>
+            </div>
+            <div style="font-size:1.5rem; font-weight:800; color:var(--cyan);">40%</div>
+            <div style="font-size:13px; color:var(--muted);">$10M</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(13,21,41,0.9); border-radius:12px; border:1px solid var(--border);">
+            <div class="legend-dot" style="width:14px;height:14px;background:var(--green); border-radius:3px;"></div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700;">Sales &amp; Marketing</div>
+              <div style="font-size:11px; color:var(--muted);">Enterprise GTM, channel partners, marketing</div>
+            </div>
+            <div style="font-size:1.5rem; font-weight:800; color:var(--green);">25%</div>
+            <div style="font-size:13px; color:var(--muted);">$6.25M</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(13,21,41,0.9); border-radius:12px; border:1px solid var(--border);">
+            <div class="legend-dot" style="width:14px;height:14px;background:#9f7aea; border-radius:3px;"></div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700;">Government Certifications</div>
+              <div style="font-size:11px; color:var(--muted);">FedRAMP, clearances, compliance infrastructure</div>
+            </div>
+            <div style="font-size:1.5rem; font-weight:800; color:#9f7aea;">15%</div>
+            <div style="font-size:13px; color:var(--muted);">$3.75M</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(13,21,41,0.9); border-radius:12px; border:1px solid var(--border);">
+            <div class="legend-dot" style="width:14px;height:14px;background:var(--yellow); border-radius:3px;"></div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700;">Operations</div>
+              <div style="font-size:11px; color:var(--muted);">Infrastructure, security, team expansion</div>
+            </div>
+            <div style="font-size:1.5rem; font-weight:800; color:var(--yellow);">10%</div>
+            <div style="font-size:13px; color:var(--muted);">$2.5M</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; padding:16px 20px; background:rgba(13,21,41,0.9); border-radius:12px; border:1px solid var(--border);">
+            <div class="legend-dot" style="width:14px;height:14px;background:var(--red); border-radius:3px;"></div>
+            <div style="flex:1;">
+              <div style="font-size:14px; font-weight:700;">Strategic Reserve</div>
+              <div style="font-size:11px; color:var(--muted);">M&amp;A opportunities, bridge to Series B</div>
+            </div>
+            <div style="font-size:1.5rem; font-weight:800; color:var(--red);">10%</div>
+            <div style="font-size:13px; color:var(--muted);">$2.5M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 19 — VALUATION & DEAL STRUCTURE
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="19">
+    <div class="slide-label">Deal Structure</div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="width:100%; max-width:1100px; display:flex; flex-direction:column; gap:32px;">
+      <div>
+        <div class="eyebrow">Valuation & Offering</div>
+        <h2>Compelling entry at <span class="cyan-text">$150M pre-money</span></h2>
+      </div>
+
+      <div class="two-col" style="align-items:start; gap:48px;">
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="text-align:center; padding:24px; background:rgba(0,240,255,0.06); border:1px solid rgba(0,240,255,0.2); border-radius:14px;">
+              <div style="font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Pre-Money</div>
+              <div style="font-size:2.2rem; font-weight:900; color:var(--cyan);">$150M</div>
+            </div>
+            <div style="text-align:center; padding:24px; background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:14px;">
+              <div style="font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Raise</div>
+              <div style="font-size:2.2rem; font-weight:900; color:var(--green);">$25M</div>
+            </div>
+            <div style="text-align:center; padding:24px; background:rgba(0,240,255,0.06); border:1px solid rgba(0,240,255,0.2); border-radius:14px;">
+              <div style="font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Post-Money</div>
+              <div style="font-size:2.2rem; font-weight:900; color:var(--cyan);">$175M</div>
+            </div>
+            <div style="text-align:center; padding:24px; background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:14px;">
+              <div style="font-size:11px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px;">Structure</div>
+              <div style="font-size:1.3rem; font-weight:800; color:var(--green);">Series A<br>/ Nasdaq</div>
+            </div>
+          </div>
+
+          <div style="background:rgba(13,21,41,0.9); border:1px solid var(--border); border-radius:14px; padding:20px 24px;">
+            <div style="font-size:11px; letter-spacing:2px; color:var(--cyan); text-transform:uppercase; margin-bottom:12px;">Potential Exit Scenarios</div>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+              <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border);">
+                <span>Series B (12-18 months)</span>
+                <span style="color:var(--cyan);">$500M–750M</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border);">
+                <span>Nasdaq IPO (Year 3-4)</span>
+                <span style="color:var(--cyan);">$1.5B–3B</span>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span>Strategic Acquisition</span>
+                <span style="color:var(--green);">$2B–5B+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:16px;">Comparable Valuations</div>
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Event</th>
+                <th>Valuation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CrowdStrike</td>
+                <td>Nasdaq IPO (2019)</td>
+                <td style="color:var(--cyan); font-weight:700;">$6.6B</td>
+              </tr>
+              <tr>
+                <td>SentinelOne</td>
+                <td>Nasdaq IPO (2021)</td>
+                <td style="color:var(--cyan); font-weight:700;">$8.9B</td>
+              </tr>
+              <tr>
+                <td>Palo Alto Networks</td>
+                <td>Current Market Cap</td>
+                <td style="color:var(--cyan); font-weight:700;">$75B</td>
+              </tr>
+              <tr>
+                <td>Lacework</td>
+                <td>Series D (2022)</td>
+                <td style="color:var(--cyan); font-weight:700;">$8.3B</td>
+              </tr>
+              <tr class="highlight">
+                <td>🛡️ SentinelMind AI</td>
+                <td>Series A (Q4 2026)</td>
+                <td style="color:var(--green); font-weight:800;">$175M post</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top:16px; background:rgba(0,255,136,0.06); border:1px solid rgba(0,255,136,0.2); border-radius:12px; padding:14px 20px;">
+            <span style="color:var(--green); font-size:13px; font-weight:600;">💡 Entering at CrowdStrike's seed-stage equivalent valuation — in a market that's 40× larger and faster growing.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SLIDE 20 — CLOSING
+  ═══════════════════════════════════════════════════ -->
+  <section class="slide" data-slide="20">
+    <div class="hex-bg"></div>
+    <div class="corner-deco tl"></div>
+    <div class="corner-deco br"></div>
+
+    <div style="display:flex; flex-direction:column; align-items:center; gap:40px; text-align:center; max-width:1000px;">
+      <div style="font-size:72px; filter:drop-shadow(0 0 40px rgba(0,240,255,0.5));">🛡️</div>
+
+      <div class="closing-quote">
+        "Every company is deploying AI.<br>
+        <em>Nobody is securing it.</em><br>
+        <span style="color:var(--green);">We are.</span>"
+      </div>
+
+      <div style="width:120px; height:2px; background:linear-gradient(90deg,var(--cyan),var(--green)); border-radius:2px;"></div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; width:100%; max-width:600px;">
+        <div style="background:rgba(13,21,41,0.9); border:1px solid rgba(0,240,255,0.2); border-radius:14px; padding:24px; text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Contact</div>
+          <div style="font-size:14px; font-weight:600; color:var(--white);">investors@sentinelmind.ai</div>
+          <div style="font-size:13px; color:var(--muted); margin-top:4px;">sentinelmind.ai</div>
+        </div>
+        <div style="background:rgba(13,21,41,0.9); border:1px solid rgba(0,240,255,0.2); border-radius:14px; padding:24px; text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">This Round</div>
+          <div style="font-size:1.8rem; font-weight:900; color:var(--green);">$25M</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Series A · Q4 2026</div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:32px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Pre-Money</div>
+          <div style="font-size:1.3rem; font-weight:800; color:var(--cyan);">$150M</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">ARR Target</div>
+          <div style="font-size:1.3rem; font-weight:800; color:var(--green);">$2M → $250M</div>
+        </div>
+        <div style="width:1px; background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase;">Market</div>
+          <div style="font-size:1.3rem; font-weight:800; color:var(--cyan);">$65B by 2030</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- SLIDE COUNTER -->
+<div id="slide-counter">1 / 20</div>
+
+<!-- KEY HINT -->
+<div id="key-hint">← → Arrow Keys or Click to Navigate</div>
+
+<!-- LOGO MARK -->
+<div class="logomark">
+  <span>🛡️</span>
+  <span>SentinelMind AI</span>
+</div>
+
+<!-- NAV BUTTONS -->
+<button class="nav-btn" id="prev-btn" aria-label="Previous slide">&#8592;</button>
+<button class="nav-btn" id="next-btn" aria-label="Next slide">&#8594;</button>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let   current = 0;
+  let   animating = false;
+
+  const progressBar  = document.getElementById('progress-bar');
+  const slideCounter = document.getElementById('slide-counter');
+  const prevBtn      = document.getElementById('prev-btn');
+  const nextBtn      = document.getElementById('next-btn');
+
+  function goTo(index) {
+    if (animating || index === current) return;
+    if (index < 0 || index >= total) return;
+
+    animating = true;
+    const direction = index > current ? 1 : -1;
+
+    const outgoing = slides[current];
+    outgoing.style.transition = 'opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1)';
+    outgoing.style.transform = `translateX(${-70 * direction}px)`;
+    outgoing.style.opacity = '0';
+    outgoing.classList.remove('active');
+
+    current = index;
+    const incoming = slides[current];
+
+    incoming.style.transition = 'none';
+    incoming.style.transform = `translateX(${70 * direction}px)`;
+    incoming.style.opacity = '0';
+    incoming.classList.add('active');
+
+    // Force reflow
+    void incoming.offsetWidth;
+
+    incoming.style.transition = 'opacity 0.55s cubic-bezier(0.4,0,0.2,1), transform 0.55s cubic-bezier(0.4,0,0.2,1)';
+    incoming.style.transform = 'translateX(0)';
+    incoming.style.opacity = '1';
+
+    // Update progress
+    progressBar.style.width = `${((current + 1) / total) * 100}%`;
+    slideCounter.textContent = `${current + 1} / ${total}`;
+
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+
+    setTimeout(() => {
+      outgoing.style.transform = 'translateX(70px)';
+      animating = false;
+    }, 600);
+  }
+
+  // Init
+  progressBar.style.width = `${(1 / total) * 100}%`;
+  prevBtn.disabled = true;
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      goTo(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      goTo(current - 1);
+    } else if (e.key === 'Home') {
+      goTo(0);
+    } else if (e.key === 'End') {
+      goTo(total - 1);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // Click on slide to advance (right 75% = next, left 25% = prev)
+  document.getElementById('deck').addEventListener('click', e => {
+    if (e.target.closest('.nav-btn')) return;
+    const x = e.clientX;
+    const w = window.innerWidth;
+    if (x > w * 0.75) {
+      goTo(current + 1);
+    } else if (x < w * 0.25) {
+      goTo(current - 1);
+    }
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) goTo(current + 1);
+      else        goTo(current - 1);
+    }
+  }, { passive: true });
+</script>
+</body>
+</html>
