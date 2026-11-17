@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Threat Dashboard — SentinelMind AI</title>
+  <meta name="description" content="SentinelMind AI — Enterprise AI Security Platform. Securing the AI Era." />
+  <meta name="theme-color" content="#0a0f1e" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Matrix Rain Canvas (background layer) -->
+  <canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+  <!-- ── Alert Ticker ─────────────────────────────────────── -->
+  <div class="ticker-bar" role="marquee" aria-live="polite" aria-label="Live security alerts">
+    <span class="ticker-label">⚡ LIVE ALERTS</span>
+    <div class="ticker-track">
+      <div id="ticker-content" class="ticker-content"></div>
+    </div>
+  </div>
+
+  <!-- ── App Shell ────────────────────────────────────────── -->
+  <div class="app-shell">
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar" role="navigation" aria-label="Module navigation">
+
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        <span class="logo-icon" aria-hidden="true">🛡️</span>
+        <div class="logo-text">
+          <div class="logo-name">SentinelMind<span class="logo-ai">AI</span></div>
+          <div class="logo-tagline">Securing the AI Era</div>
+        </div>
+      </div>
+
+      <!-- Dynamic nav items injected by app.js -->
+      <nav id="sidebar-nav" class="sidebar-nav" aria-label="Primary navigation"></nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="sf-status">
+          <span class="sf-dot"></span>
+          All Systems Nominal
+        </div>
+        <div class="sf-uptime">Uptime: 99.97%</div>
+        <div class="sf-version mono">v3.1.4-stable</div>
+      </div>
+    </aside>
+
+    <!-- Sidebar overlay for mobile -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()" aria-hidden="true"></div>
+
+    <!-- Main Area -->
+    <div class="main-wrapper">
+
+      <!-- Top Header Bar -->
+      <header class="top-header" role="banner">
+        <div class="header-left">
+          <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+          </button>
+          <h1 id="module-title" class="module-title">🏠&nbsp;&nbsp;Threat Dashboard</h1>
+        </div>
+
+        <div class="header-right">
+          <div class="header-badge critical-pulse">
+            <span class="hb-dot"></span>
+            <span>LIVE</span>
+          </div>
+          <div class="sys-clock">
+            <span class="sys-label">SYS TIME</span>
+            <span id="sys-time" class="sys-time mono">—</span>
+          </div>
+          <div class="header-user" title="george@sentinelmind.ai">
+            <span class="user-avatar">G</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Module Content (rendered by modules.js) -->
+      <main id="module-content" class="module-content" role="main" aria-live="polite"></main>
+
+    </div><!-- /main-wrapper -->
+  </div><!-- /app-shell -->
+
+  <!-- ── Toast Notification Container ───────────────────── -->
+  <div id="toast-container" class="toast-container" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- ── Scripts (order matters) ─────────────────────────── -->
+  <script src="js/threat-data.js"></script>
+  <script src="js/modules.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Service Worker registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+
+</body>
+</html>
